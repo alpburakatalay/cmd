@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Komut İstemi</title>
+
+<style>
+body{
+  margin:0;
+  background:#0c0c0c;
+  font-family:Consolas, monospace;
+  color:#cccccc;
+  overflow:hidden;
+}
+
+/* Titlebar */
+.titlebar{
+  background:#1f1f1f;
+  color:white;
+  padding:6px 12px;
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.window-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.window-buttons div{
+  width:12px;
+  height:12px;
+  background:#555;
+}
+
+#terminal{
+  padding:15px;
+  height:calc(100vh - 32px);
+  white-space:pre-wrap;
+  position:relative;
+  z-index:2;
+}
+
+/* Screen shake */
+@keyframes shake {
+  0% { transform: translate(0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+
+.shake{
+  animation: shake 0.1s infinite;
+}
+
+/* Glitch */
+.glitch{
+  text-shadow:
+    2px 0 red,
+   -2px 0 cyan;
+}
+
+/* Matrix canvas */
+#matrixCanvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  opacity:0.15;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<div class="titlebar">
+  <div>C:\Windows\System32\cmd.exe</div>
+  <div class="window-buttons"><div></div><div></div><div></div></div>
+</div>
+
+<div id="terminal"></div>
+
+<script>
+
+/* ---------- AYARLAR ---------- */
+
+const usernames = ["Admin","Operator","RootUser","DeltaX","SystemCore","Alpha","XForce"];
+const user = usernames[Math.floor(Math.random()*usernames.length)];
+
+const SCRIPT = [
+"Microsoft Windows [Version 10.0.19045]",
+"(c) Microsoft Corporation.",
+"",
+"C:\\Users\\" + user + ">systeminfo",
+"",
+"OS Name: Microsoft Windows 10 Pro",
+"Total Physical Memory: 16384 MB",
+"",
+"C:\\Users\\" + user + ">dir",
+"",
+" Directory of C:\\Users\\" + user,
+"",
+"secrets.txt",
+"",
+"C:\\Users\\" + user + ">_"
+];
+
+/* ---------- Yazma Mekaniği ---------- */
+
+const typingSpeedMin = 5;
+const typingSpeedMax = 25;
+
+const terminal = document.getElementById("terminal");
+
+let lineIndex=0;
+let charIndex=0;
+let typing=false;
+
+function typeNext(){
+
+  if(lineIndex>=SCRIPT.length) return;
+
+  typing=true;
+  const line=SCRIPT[lineIndex];
+
+  if(charIndex<line.length){
+    terminal.textContent+=line[charIndex];
+    charIndex++;
+
+    const delay=Math.random()*(typingSpeedMax-typingSpeedMin)+typingSpeedMin;
+    setTimeout(typeNext,delay);
+
+  }else{
+    terminal.textContent+="\n";
+    lineIndex++;
+    charIndex=0;
+    typing=false;
+  }
+}
+
+/* ---------- SECRET SYSTEM ---------- */
+
+const secretCodes={
+  "hack": matrixMode,
+  "root": redAlertMode,
+  "clear": clearTerminal,
+  "sik": sonsistemsikici,
+  "boom": boomMode
+};
+
+let buffer="";
+
+function matrixMode(){
+  terminal.classList.add("glitch");
+  document.body.style.color="#00ff00";
+  startMatrix();
+  scrambleText();
+}
+
+function redAlertMode(){
+  document.body.style.background="#1a0000";
+  terminal.style.color="red";
+  document.body.classList.add("shake");
+}
+
+function clearTerminal(){
+  terminal.textContent="C:\\Users\\"+user+">\n";
+}
+
+function sonsistemsikici(){
+
+    document.body.style.background = "#1a0000";
+    terminal.style.color = "red";
+    document.body.classList.add("shake");
+
+    SCRIPT.push("[Kritik Sistem Sikilişi]");
+    SCRIPT.push("Sistem sikiliyor...");
+    SCRIPT.push("Sistemi siktin amk.");
+    SCRIPT.push("Anasını bacısını siktin.");
+    SCRIPT.push("İyi bok yedin mal.");
+    SCRIPT.push(">");
+    SCRIPT.push("Bir tuşa bas");
+    SCRIPT.push("Bende seni sikecemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    SCRIPT.push("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    // BURASI ÖNEMLİ
+    if(!typing){
+        setTimeout(typeNext, 50);
+    }
+}
+
+function boomMode(){
+  terminal.classList.add("glitch");
+  document.body.style.color="#00ff00";
+  startMatrix();
+SCRIPT.push("Initializing secure protocol...");
+SCRIPT.push("Scanning memory sectors...");
+SCRIPT.push("Sector 0x000000FF ........ OK");
+SCRIPT.push("Sector 0x0000A3B2 ........ OK");
+SCRIPT.push("Sector 0x000F91AC ........ OK");
+SCRIPT.push("Injecting payload into kernel space...");
+SCRIPT.push("Bypassing security layer...");
+SCRIPT.push("Firewall status .......... DISABLED");
+SCRIPT.push("Encrypting connection tunnel...");
+SCRIPT.push("Generating RSA-4096 keys...");
+SCRIPT.push("Handshake with remote node 185.24.118.73 ... SUCCESS");
+SCRIPT.push("Establishing shadow bridge...");
+SCRIPT.push("");
+SCRIPT.push("[+] Access Level: ROOT");
+SCRIPT.push("[+] Authority Override Granted");
+SCRIPT.push("[+] System Integrity: COMPROMISED");
+SCRIPT.push("");
+SCRIPT.push("Dumping credential cache...");
+SCRIPT.push("Extracting user tokens...");
+SCRIPT.push("Hash sequence: 9fa4c88e3a1d77b2df992aa31cbb091e");
+SCRIPT.push("");
+SCRIPT.push("Deploying silent watcher daemon...");
+SCRIPT.push("Attaching to system process ID: 4421");
+SCRIPT.push("Hook installed successfully.");
+SCRIPT.push("");
+SCRIPT.push("WARNING: Intrusion trace detected...");
+SCRIPT.push("Scrambling signal signature...");
+SCRIPT.push("Spoofing hardware fingerprint...");
+SCRIPT.push("Trace neutralized.");
+SCRIPT.push("");
+SCRIPT.push("Uploading data package (34.2MB)...");
+SCRIPT.push("[##########----------] 46%");
+SCRIPT.push("[###############-----] 73%");
+SCRIPT.push("[####################] 100%");
+SCRIPT.push("");
+SCRIPT.push("Data transfer complete.");
+SCRIPT.push("Wiping system logs...");
+SCRIPT.push("Overwriting sectors...");
+SCRIPT.push("Cleaning residual temp files...");
+SCRIPT.push("");
+SCRIPT.push("Leaving backdoor channel open...");
+SCRIPT.push("Persistence module installed.");
+SCRIPT.push("");
+SCRIPT.push("Process finished with exit code 0x00000000");
+SCRIPT.push("C:\\Users\\>_");
+
+}
+
+
+/* ---------- SCRAMBLE ---------- */
+
+function scrambleText(){
+  let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+  let content=terminal.textContent;
+  let newText="";
+  for(let i=0;i<content.length;i++){
+    if(Math.random()<0.1){
+      newText+=chars[Math.floor(Math.random()*chars.length)];
+    }else{
+      newText+=content[i];
+    }
+  }
+  terminal.textContent=newText;
+}
+
+/* ---------- MATRIX EFFECT ---------- */
+
+const canvas=document.getElementById("matrixCanvas");
+const ctx=canvas.getContext("2d");
+
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+const letters="01";
+const fontSize=14;
+const columns=canvas.width/fontSize;
+const drops=[];
+
+for(let x=0;x<columns;x++){
+  drops[x]=1;
+}
+
+function drawMatrix(){
+  ctx.fillStyle="rgba(0,0,0,0.05)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="#0F0";
+  ctx.font=fontSize+"px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    const text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+      drops[i]=0;
+
+    drops[i]++;
+  }
+}
+
+let matrixInterval=null;
+
+function startMatrix(){
+  if(!matrixInterval){
+    matrixInterval=setInterval(drawMatrix,33);
+  }
+}
+
+/* ---------- KLAVYE ---------- */
+
+document.addEventListener("keydown",function(e){
+
+  buffer+=e.key.toLowerCase();
+
+  if(buffer.length>20)
+    buffer=buffer.slice(-20);
+
+  for(const code in secretCodes){
+    if(buffer.endsWith(code)){
+      secretCodes[code]();
+      buffer="";
+    }
+  }
+
+  if(!typing){
+    typeNext();
+  }
+
+});
+
+terminal.textContent="C:\\Users\\"+user+">\n";
+
+</script>
+
+</body>
+</html>
